@@ -7,10 +7,6 @@ import sqlite3
 
 connection=sqlite3.connect("partnersearchapp.sqlite") #We are connecting to the database.
 cur=connection.cursor()
-participants.to_sql("Participants",connection,if_exists="replace", index=False)
-projects.to_sql("Projects",connection,if_exists="replace", index=False)
-countries.to_sql("Countries",connection,if_exists="replace",index=False)
-projects.head() #Let's check how everything got imported into the database. In this case, we are using participants daataframe.
 
 custom_participants=pd.read_sql('''SELECT projects.year, SUM(ecContribution) AS grants, countries.Country
 FROM participants, projects, countries
