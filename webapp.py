@@ -2,9 +2,6 @@
 import streamlit as st
 import pandas as pd
 import sqlite3
-participants=pd.read_excel('C:/Users/xaver/Downloads/participants.xlsx')
-projects=pd.read_excel('C:/Users/xaver/Downloads/projects.xlsx')
-countries=pd.read_excel('C:/Users/xaver/Downloads/countries.xlsx')
 
 # #2. Database creation.
 
