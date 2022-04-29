@@ -19,4 +19,9 @@ GROUP BY projects.year'''.format(option) , connection)
 # Creating a plot of the overall aggregated contribution per year. This will allow us to see if we approached the problem correctly, and then proceed with the view per country.
 st.bar_chart(custom_participants['grants'])
 
-st.write(custom_participants)
+best=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, participants.organizationURL 
+FROM participants, country
+WHERE participants.country == countries.Acronym AND countries.Country == {}
+'''.format(option),connection)
+
+st.write(best)
