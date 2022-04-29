@@ -21,7 +21,6 @@ st.bar_chart(custom_participants['grants'])
 
 best=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, participants.organizationURL 
 FROM participants, country
-WHERE participants.country == countries.Acronym AND countries.Country == '{}'
-'''.format(option),connection)
+WHERE participants.country == countries.Acronym AND countries.Country == '{}' '''.format(option),connection)
 
 st.write(best)
