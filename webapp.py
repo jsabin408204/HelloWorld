@@ -18,3 +18,7 @@ GROUP BY projects.year'''.format(option) , connection)
 
 # Creating a plot of the overall aggregated contribution per year. This will allow us to see if we approached the problem correctly, and then proceed with the view per country.
 st.bar_chart(custom_participants['grants'])
+
+# Creating another data frame with the required columns aggregated by contribution and sorted by descending contribution.
+best=custom_participants.groupby(["shortName","name","activityType","organizationURL"]).agg({"ecContribution":["count","sum"]}).sort_values([("ecContribution","sum")],ascending=False)
+st.write(best)
