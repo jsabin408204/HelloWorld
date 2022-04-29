@@ -6,9 +6,10 @@ import sqlite3
 # #2. Database creation.
 
 connection=sqlite3.connect("partnersearchapp.sqlite") #We are connecting to the database.
-cur=connection.cursor()
 
-option = st.selectbox('Country:', countries['Country'].unique())
+dropcountries=pd.read_sql('''SELECT Country FROM countries''',connection)
+
+option = st.selectbox('Country:', dropcountries["Country"].unique())
 
 custom_participants=pd.read_sql('''SELECT projects.year, SUM(ecContribution) AS grants, countries.Country
 FROM participants, projects, countries
