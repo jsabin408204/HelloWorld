@@ -13,7 +13,7 @@ FROM participants, projects, countries
 WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym 
 GROUP BY projects.year''', connection)
 
-print(custom_participants)
+st.write(custom_participants)
 
 option = st.selectbox('Country:', custom_participants['Country'].unique())
 
