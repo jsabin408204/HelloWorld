@@ -29,3 +29,9 @@ st.bar_chart(custom_participants['sum_ecContribution'])
 
 st.header('Participants in {}'.format(option))
 st.write(custom_participants)
+
+coordinators=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, projects.acronym
+FROM participants, projects, countries
+WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == '{}' AND participants.role == "coordinator"
+ORDER BY shortName'''.format(option) , connection)
+st.write(coordinators)
