@@ -16,7 +16,7 @@ WHERE participants.projectID == projects.projectID AND participants.country == c
 GROUP BY projects.year
 ORDER BY sum_ecContribution DESC'''.format(option) , connection)
 
-custom_participants.set_index(custom_participants['year'])
+custom_participants.set_index('year')
 
 # Creating a plot of the overall aggregated contribution per year. This will allow us to see if we approached the problem correctly, and then proceed with the view per country.
 st.header('Yearly EC contribution in {} (€)'.format(option))
