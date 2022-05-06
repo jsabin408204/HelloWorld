@@ -10,7 +10,12 @@ st.image('KDT logo.jpg')
 
 st.title('Partner search tool')
 
-option = st.selectbox('Country:', dropcountries["Country"].unique())
+# Creating a dataframe to ensure only the existing countries are shown in the select box
+checked_countries = pd.read_sql('''SELECT countries.Country
+FROM participants, countries
+WHERE participants.country == countries.acronym''', connection).unique()
+
+option = st.selectbox('Country:', checked_countries)
 
 custom_participants=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, participants.organizationURL, COUNT(participants.projectID) as count_project, SUM(ecContribution) as sum_ecContribution, projects.year as year
 FROM participants, projects, countries
