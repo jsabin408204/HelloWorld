@@ -21,4 +21,4 @@ st.header('Yearly EC contribution in {} (€)'.format(option))
 st.bar_chart(custom_participants['sum_ecContribution'])
 
 st.header('Participants in {}'.format(option))
-st.write(best)
+st.write(custom_participants)
