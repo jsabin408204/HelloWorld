@@ -20,8 +20,7 @@ GROUP BY projects.year'''.format(option) , connection)
 st.bar_chart(custom_participants['grants'])
 
 best=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, participants.organizationURL 
-FROM participants, country
-WHERE participants.country == countries.acronym AND countries.Country == '{}' 
-GROUP BY projects.year'''.format(option) , connection)
+FROM participants
+GROUP BY projects.year''')
 
 st.write(best)
