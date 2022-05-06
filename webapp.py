@@ -6,6 +6,8 @@ connection=sqlite3.connect("partnersearchapp.sqlite") #We are connecting to the 
 
 dropcountries=pd.read_sql('''SELECT Country FROM countries''',connection)
 
+st.image('KDT logo.jpg')
+
 st.title('Partner search tool')
 
 option = st.selectbox('Country:', dropcountries["Country"].unique())
