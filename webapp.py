@@ -10,11 +10,13 @@ st.title('Partner search tool')
 
 option = st.selectbox('Country:', dropcountries["Country"].unique())
 
-custom_participants=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, participants.organizationURL, COUNT(participants.projectID) as count_project, SUM(ecContribution) as sum_ecContribution
+custom_participants=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, participants.organizationURL, COUNT(participants.projectID) as count_project, SUM(ecContribution) as sum_ecContribution, projects.year as year
 FROM participants, projects, countries
 WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == '{}' 
 GROUP BY projects.year
 ORDER BY sum_ecContribution DESC'''.format(option) , connection)
+
+custom_participants.set_index(custom_participants['year'])
 
 # Creating a plot of the overall aggregated contribution per year. This will allow us to see if we approached the problem correctly, and then proceed with the view per country.
 st.header('Yearly EC contribution in {} (€)'.format(option))
