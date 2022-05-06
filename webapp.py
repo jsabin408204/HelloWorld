@@ -1,13 +1,12 @@
-# Importing the data and necessary commands.
 import streamlit as st
 import pandas as pd
 import sqlite3
 
-# #2. Database creation.
-
 connection=sqlite3.connect("partnersearchapp.sqlite") #We are connecting to the database.
 
 dropcountries=pd.read_sql('''SELECT Country FROM countries''',connection)
+
+st.title('Partner search tool')
 
 option = st.selectbox('Country:', dropcountries["Country"].unique())
 
