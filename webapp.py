@@ -19,7 +19,7 @@ GROUP BY projects.year'''.format(option) , connection)
 st.header('Yearly EC contribution in {} (€)'.format(option))
 st.bar_chart(custom_participants['grants'])
 
-best=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, participants.organizationURL 
+best=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, participants.organizationURL, COUNT(projectID), SUM(ecContribution) as sum_ecContribution
 FROM participants, projects, countries
 WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == '{}' 
 GROUP BY projects.year'''.format(option) , connection)
