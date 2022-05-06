@@ -41,6 +41,6 @@ st.write(coordinators)
 def convert_df(df):
  return df.to_csv().encode('utf-8')
 
-st.download_button(label="Download the participants dataset",data=convert_df(custom_participants), file_name='participants.csv', mime='text/csv')
-st.download_button(label="Download the coordinators dataset",data=convert_df(coordinators), file_name='coordinators.csv', mime='text/csv')
+st.download_button(label="Download the participants' dataset",data=convert_df(custom_participants), file_name='participants.csv', mime='text/csv')
+st.download_button(label="Download the coordinators' dataset",data=convert_df(coordinators), file_name='coordinators.csv', mime='text/csv')
 
