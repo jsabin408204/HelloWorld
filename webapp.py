@@ -35,6 +35,9 @@ st.bar_chart(custom_participants['sum_ecContribution'])
 st.header('Participants in {}'.format(option))
 st.write(custom_participants)
 
+# Download button for the participants' dataset in csv format
+st.download_button(label="Download the participants' dataset",data=custom_participants.to_csv().encode('utf-8'), file_name='Participants in {}.csv'.format(option), mime='text/csv')
+
 # Creating the dataframe of coordinators of the selected country in ascending order by shortName
 coordinators=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, projects.acronym
 FROM participants, projects, countries
@@ -45,7 +48,6 @@ ORDER BY shortName'''.format(option) , connection)
 st.header('Coordinators in {}'.format(option))
 st.write(coordinators)
 
-# Download buttons for the participants' and coordinators' datasets in csv format
-st.download_button(label="Download the participants' dataset",data=custom_participants.to_csv().encode('utf-8'), file_name='Participants in {}.csv'.format(option), mime='text/csv')
+# Download button for the coordinators' dataset in csv format
 st.download_button(label="Download the coordinators' dataset",data=coordinators.to_csv().encode('utf-8'), file_name='Project coordinators in {}.csv'.format(option), mime='text/csv')
 
