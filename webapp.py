@@ -46,6 +46,6 @@ st.header('Coordinators in {}'.format(option))
 st.write(coordinators)
 
 # Download buttons for the participants' and coordinators' datasets in csv format
-st.download_button(label="Download the participants' dataset",data=custom_participants.to_csv().encode('utf-8'), file_name='{}_participants.csv'.format(option), mime='text/csv')
-st.download_button(label="Download the coordinators' dataset",data=coordinators.to_csv().encode('utf-8'), file_name='{}_coordinators.csv'.format(option), mime='text/csv')
+st.download_button(label="Download the participants' dataset",data=custom_participants.to_csv().encode('utf-8'), file_name='{} participants.csv'.format(option), mime='text/csv')
+st.download_button(label="Download the coordinators' dataset",data=coordinators.to_csv().encode('utf-8'), file_name='{} coordinators.csv'.format(option), mime='text/csv')
 
