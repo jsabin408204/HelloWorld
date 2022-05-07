@@ -20,7 +20,7 @@ WHERE participants.country == countries.acronym''', connection)
 # Saving the selected country from the select box, generating its acronym and printing the chosen country with its acronym
 country_option = st.selectbox('Country:', checked_countries['Country'].unique())
 acronym_option = pd.read_sql('''SELECT Acronym FROM countries WHERE Country == "{}"'''.format(country_option), connection)
-st.write('You selected {}-{}'.format(str(acronym_option)[10:12], country_option))
+st.write('You selected {}-{}'.format(str(acronym_option)[13:15], country_option))
 
 # Creating the dataframe of participants of the selected country grouped by project year and in descending order of contribution
 custom_participants=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, participants.organizationURL, COUNT(participants.projectID) as count_project, SUM(ecContribution) as sum_ecContribution, projects.year as year
