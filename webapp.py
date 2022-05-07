@@ -50,7 +50,5 @@ if len(coordinators.index) == 0:
 else:
   st.header('Coordinators in {}'.format(option))
   st.write(coordinators)
-
-# Download button for the coordinators' dataset in csv format
-st.download_button(label="Download the coordinators' dataset",data=coordinators.to_csv().encode('utf-8'), file_name='Project coordinators in {}.csv'.format(option), mime='text/csv')
-
+  # Download button for the coordinators' dataset in csv format
+  st.download_button(label="Download the coordinators' dataset",data=coordinators.to_csv().encode('utf-8'), file_name='Project coordinators in {}.csv'.format(option), mime='text/csv')
