@@ -45,10 +45,10 @@ WHERE participants.projectID == projects.projectID AND participants.country == c
 ORDER BY shortName'''.format(option) , connection)
 
 # Printing the coordinators' dataframe with a condition in case it is empty
+st.header('Coordinators in {}'.format(option))
 if len(coordinators.index) == 0:
-  st.text('No project coordinators available in {}'.format(option))
+  st.write('No project coordinators available in {}'.format(option))
 else:
-  st.header('Coordinators in {}'.format(option))
   st.write(coordinators)
   # Download button for the coordinators' dataset in csv format
   st.download_button(label="Download the coordinators' dataset",data=coordinators.to_csv().encode('utf-8'), file_name='Project coordinators in {}.csv'.format(option), mime='text/csv')
