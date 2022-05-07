@@ -46,7 +46,7 @@ ORDER BY shortName'''.format(option) , connection)
 
 # Printing the coordinators' dataframe with a condition in case it is empty
 if len(coordinators.index) == 0:
-  st.write('No project coordinators available in {}'.format(option))
+  st.header('No project coordinators available in {}'.format(option))
 else:
   st.header('Coordinators in {}'.format(option))
   st.write(coordinators)
