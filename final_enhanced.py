@@ -13,16 +13,14 @@ st.image('KDT logo.jpg')
 st.title('Partner search tool')
 
 # Dataframe to ensure only the existing countries in participants are shown in the select box and to have their acronyms
-checked_countries = pd.read_sql('''SELECT countries.Country AS Country, countries.Acronym AS Acronym
-FROM participants, countries
-WHERE participants.country == countries.acronym''', connection)
+checked_countries = pd.read_sql('''SELECT countries.Country AS Country, countries.Acronym AS Acronym, projects.Year as Year
+FROM participants, countries, projects
+WHERE participants.country == countries.acronym AND participants.projectID == projects.projectID''', connection)
 
 # Saving the selected country from the select box, generating its acronym and printing the chosen country with its acronym
 country_option = st.selectbox('Country:', checked_countries['Country'].unique())
 acronym_option = checked_countries[checked_countries['Country'] == country_option].Acronym.sample().item()
 st.write('You selected {}-{}'.format(acronym_option, country_option))
-
-checked_years = pd.read_sql('''SELECT year FROM participants WHERE country == acronym_option''')
 
 year = st.slider('What year would you like to see?', 0, 130, 25)
 
