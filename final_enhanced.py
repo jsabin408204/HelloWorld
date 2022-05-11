@@ -2,6 +2,7 @@
 import streamlit as st
 import pandas as pd
 import sqlite3
+import numpy as np
 
 # Connecting to the database
 connection=sqlite3.connect("partnersearchapp.sqlite") 
@@ -24,8 +25,7 @@ st.write('You selected {}-{}'.format(acronym_option, country_option))
 
 checked_year = pd.read_sql('''SELECT projects.year AS Year FROM projects, participants 
 WHERE participants.country == '{}' AND participants.projectID == projects.projectID'''.format(acronym_option), connection)
-st.write(type(checked_year['Year'].unique()))
-year_option = st.selectbox('What year would you like to see?', checked_year['Year'].unique().sort())
+year_option = st.selectbox('What year would you like to see?', np.unique(checked_year['Year']))
 
 # Creating the dataframe of participants of the selected country grouped by project year and in descending order of contribution
 custom_participants=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, participants.organizationURL, COUNT(participants.projectID) as count_project, SUM(ecContribution) as sum_ecContribution, projects.year as year
