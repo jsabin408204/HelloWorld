@@ -25,10 +25,8 @@ st.write('You selected {}-{}'.format(acronym_option, country_option))
 
 checked_year = pd.read_sql('''SELECT projects.year AS Year FROM projects, participants 
 WHERE participants.country == '{}' AND participants.projectID == projects.projectID'''.format(acronym_option), connection)
-possible_years = list(checked_year['Year'].unique())
-st.write(possible_years)
 
-year_option = st.slider('What year would you like to see?', min(possible_years), max(possible_years), round(mean(possible_years)))
+year_option = st.slider('What year would you like to see?', min(checked_year['Year']), max(checked_year['Year']), round(mean(checked_year['Year'])))
 
 # Creating the dataframe of participants of the selected country grouped by project year and in descending order of contribution
 custom_participants=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, participants.organizationURL, COUNT(participants.projectID) as count_project, SUM(ecContribution) as sum_ecContribution, projects.year as year
