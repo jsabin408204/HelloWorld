@@ -25,7 +25,7 @@ st.write('You selected {}-{}'.format(acronym_option, country_option))
 
 checked_year = pd.read_sql('''SELECT projects.year AS Year FROM projects, participants 
 WHERE participants.country == '{}' AND participants.projectID == projects.projectID'''.format(acronym_option), connection)
-year_option = st.selectbox('What year would you like to see?', np.unique(checked_year['Year']))
+year_option = st.selectbox('Year:', np.unique(checked_year['Year']))
 
 # Creating the dataframe of participants of the selected country grouped by project year and in descending order of contribution
 custom_participants=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, participants.organizationURL, COUNT(participants.projectID) as count_project, SUM(ecContribution) as sum_ecContribution, projects.year as year
@@ -60,4 +60,4 @@ else:
   # Download button for the coordinators' dataset in csv format
   st.download_button(label="Download the coordinators' dataset",data=coordinators.to_csv().encode('utf-8'), file_name='Project coordinators in {}.csv'.format(country_option), mime='text/csv')
 
- a = st.sidebar.radio('Select one:', [1, 2])
+a = st.sidebar.radio('Select one:', [1, 2])
