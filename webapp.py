@@ -12,7 +12,7 @@ st.image('KDT logo.jpg')
 # Title of the webapp
 st.title('Partner search tool')
 
-# Dataframe to ensure only the existing countries in participants are shown in the select box and to have their acronyms
+# Dataframe to ensure only the existing countries in participants are shown in the select box
 checked_countries = pd.read_sql('''SELECT countries.Country AS Country
 FROM participants, countries
 WHERE participants.country == countries.acronym''', connection)
@@ -46,7 +46,7 @@ FROM participants, projects, countries
 WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == '{}' AND participants.role == "coordinator"
 ORDER BY shortName'''.format(country_option) , connection)
 
-# Printing the coordinators' dataframe with a condition in case it is empty
+# Printing the coordinators' dataframe with a condition in case it is empty for a given country
 st.header('Project coordinators in {}'.format(country_option))
 if len(coordinators.index) == 0:
   st.write('No project coordinators available in {}'.format(country_option))
