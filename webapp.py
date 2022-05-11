@@ -12,15 +12,15 @@ st.image('KDT logo.jpg')
 # Title of the webapp
 st.title('Partner search tool')
 
-# Dataframe to ensure only the existing countries in participants are shown in the select box
-checked_countries = pd.read_sql('''SELECT countries.Country AS Country
+# Dataframe to ensure only the existing countries in participants are shown in the select box and to have their acronyms
+checked_countries = pd.read_sql('''SELECT countries.Country AS Country, countries.Acronym AS Acronym
 FROM participants, countries
 WHERE participants.country == countries.acronym''', connection)
 
 # Saving the selected country from the select box, generating its acronym and printing the chosen country with its acronym
 country_option = st.selectbox('Country:', checked_countries['Country'].unique())
-acronym_option = pd.read_sql('''SELECT Acronym FROM countries WHERE Country == '{}' '''.format(country_option), connection)
-st.write('You selected {}-{}'.format(str(acronym_option)[-2:], country_option))
+acronym_option = checked_countries[checked_countries['Country'] == country_option].Acronym.item()
+st.write('You selected {}-{}'.format(acronym_option, country_option))
 
 # Creating the dataframe of participants of the selected country grouped by project year and in descending order of contribution
 custom_participants=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, participants.organizationURL, COUNT(participants.projectID) as count_project, SUM(ecContribution) as sum_ecContribution, projects.year as year
