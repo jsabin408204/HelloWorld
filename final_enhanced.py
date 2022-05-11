@@ -13,7 +13,7 @@ st.image('KDT logo.jpg')
 st.title('Partner search tool')
 
 # Dataframe to ensure only the existing countries in participants are shown in the select box and to have their acronyms
-checked_countries = pd.read_sql('''SELECT countries.Country AS Country, countries.Acronym AS Acronym, year
+checked_countries = pd.read_sql('''SELECT countries.Country AS Country, countries.Acronym AS Acronym
 FROM participants, countries
 WHERE participants.country == countries.acronym''', connection)
 
