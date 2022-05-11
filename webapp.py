@@ -18,8 +18,9 @@ FROM participants, countries
 WHERE participants.country == countries.acronym''', connection)
 
 # Saving the selected country from the select box, generating its acronym and printing the chosen country with its acronym
-country_option = st.selectbox('Country:', checked_countries['Country'].unique())
-acronym_option = checked_countries[checked_countries['Country'].unique() == country_option].Acronym.sample().item()
+checked_countries['Country'] = checked_countries['Country'].unique()
+country_option = st.selectbox('Country:', checked_countries['Country'])
+acronym_option = checked_countries[checked_countries['Country'] == country_option].Acronym.sample().item()
 st.write('You selected {}-{}'.format(acronym_option, country_option))
 
 # Creating the dataframe of participants of the selected country grouped by project year and in descending order of contribution
