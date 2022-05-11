@@ -14,16 +14,20 @@ st.image('KDT logo.jpg')
 st.title('Partner search tool')
 
 # Dataframe to ensure only the existing countries in participants are shown in the select box and to have their acronyms
-checked_countries = pd.read_sql('''SELECT countries.Country AS Country, countries.Acronym AS Acronym, projects.Year as Year
-FROM participants, countries, projects
-WHERE participants.country == countries.acronym AND participants.projectID == projects.projectID''', connection)
+checked_countries = pd.read_sql('''SELECT countries.Country AS Country, countries.Acronym AS Acronym
+FROM participants, countries
+WHERE participants.country == countries.acronym''', connection)
 
 # Saving the selected country from the select box, generating its acronym and printing the chosen country with its acronym
 country_option = st.selectbox('Country:', checked_countries['Country'].unique())
 acronym_option = checked_countries[checked_countries['Country'] == country_option].Acronym.sample().item()
 st.write('You selected {}-{}'.format(acronym_option, country_option))
 
-year_option = st.slider('What year would you like to see?', min(checked_countries['Year']), max(checked_countries['Year']), round(mean(checked_countries['Year'])))
+checked_year = pd.read_sql('''SELECT projects.year AS Year FROM participants, projects 
+WHERE participants.projectID == projects.projectID AND participants.country == {}'''.format(country_option))
+possible_years = list(checked_year['Year'].unique())
+
+year_option = st.slider('What year would you like to see?', min(possible_years), max(possible_years), round(mean(possible_years)))
 
 # Creating the dataframe of participants of the selected country grouped by project year and in descending order of contribution
 custom_participants=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, participants.organizationURL, COUNT(participants.projectID) as count_project, SUM(ecContribution) as sum_ecContribution, projects.year as year
