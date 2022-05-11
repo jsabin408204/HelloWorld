@@ -23,7 +23,7 @@ country_option = st.selectbox('Country:', checked_countries['Country'].unique())
 acronym_option = checked_countries[checked_countries['Country'] == country_option].Acronym.sample().item()
 st.write('You selected {}-{}'.format(acronym_option, country_option))
 
-year = st.slider('What year would you like to see?', min(checked_countries['Year'], max(checked_countries['Year'], round(mean(checked_countries['Year']))))
+year = st.slider('What year would you like to see?', min(checked_countries['Year']), max(checked_countries['Year']), round(mean(checked_countries['Year'])))
 
 # Creating the dataframe of participants of the selected country grouped by project year and in descending order of contribution
 custom_participants=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, participants.organizationURL, COUNT(participants.projectID) as count_project, SUM(ecContribution) as sum_ecContribution, projects.year as year
