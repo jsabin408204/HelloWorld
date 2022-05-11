@@ -23,9 +23,7 @@ country_option = st.selectbox('Country:', checked_countries['Country'].unique())
 acronym_option = checked_countries[checked_countries['Country'] == country_option].Acronym.sample().item()
 st.write('You selected {}-{}'.format(acronym_option, country_option))
 
-checked_year = pd.read_sql('''SELECT projects.year AS Year 
-FROM participants, projects 
-participants.projectID == projects.projectID AND participants.country == 'DE' ''', connection)
+checked_year = pd.read_sql('''SELECT projects.year FROM projects''', connection)
 possible_years = list(checked_year['Year'].unique())
 
 year_option = st.slider('What year would you like to see?', min(possible_years), max(possible_years), round(mean(possible_years)))
