@@ -59,5 +59,3 @@ else:
   st.write(coordinators)
   # Download button for the coordinators' dataset in csv format
   st.download_button(label="Download the coordinators' dataset",data=coordinators.to_csv().encode('utf-8'), file_name='Project coordinators in {} in {}.csv'.format(country_option, year_option), mime='text/csv')
-
-a = st.sidebar.radio('Select one:', [1, 2])
