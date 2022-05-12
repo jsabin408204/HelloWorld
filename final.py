@@ -29,7 +29,7 @@ custom_participants=pd.read_sql('''SELECT participants.shortName, participants.n
 FROM participants, projects, countries
 WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == '{}' 
 GROUP BY projects.year
-ORDER BY sum_ecContribution DESC'''.format(country_option) , connection, index_col = 'year')
+ORDER BY sum_ecContribution DESC'''.format(country_option), connection, index_col = 'year')
 
 # Creating a plot of the contribution per year of a given country
 st.header('Yearly EC contribution in {} (€)'.format(country_option))
