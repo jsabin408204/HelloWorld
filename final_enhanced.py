@@ -13,6 +13,8 @@ st.image('KDT logo.jpg')
 # Title of the webapp
 st.title('Partner search tool')
 
+st.metric('My metric', 42, 2)
+
 # Dataframe to ensure only the existing countries in participants are shown in the select box and to have their acronyms
 checked_countries = pd.read_sql('''SELECT countries.Country AS Country, countries.Acronym AS Acronym
 FROM participants, countries
