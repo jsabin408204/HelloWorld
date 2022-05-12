@@ -23,7 +23,7 @@ country_option = st.selectbox('Country:', checked_countries['Country'].unique())
 acronym_option = checked_countries[checked_countries['Country'] == country_option].Acronym.sample().item()
 st.write('You selected {}-{}'.format(acronym_option, country_option))
 
-year_preference = st.radio('Display preference:', ['All years', 'Specific year'])
+year_preference = st.sidebar.radio('Display preference:', ['All years', 'Specific year'])
 
 if year_preference == 'Specific year':
   checked_year = pd.read_sql('''SELECT projects.year AS Year FROM projects, participants 
@@ -58,7 +58,7 @@ if year_preference == 'All years':
     first_year = st.radio('First year:', available_years)
     available_years_after = [year for year in available_years if year > first_year]
     if len(available_years_after) > 0:
-      second_year = st.sidebar.radio('Second year:', available_years_after)
+      second_year = st.radio('Second year:', available_years_after)
       difference = custom_participants.loc[second_year, 'sum_ecContribution'] - custom_participants.loc[first_year, 'sum_ecContribution']
       st.metric('Overall difference in aggregated grants', custom_participants.loc[second_year, 'sum_ecContribution'],difference)
     else:
