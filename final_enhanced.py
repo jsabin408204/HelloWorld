@@ -20,11 +20,10 @@ WHERE participants.country == countries.acronym''', connection)
 
 # Saving the selected country from the select box, generating its acronym and printing the chosen country with its acronym
 country_option = st.selectbox('Country:', checked_countries['Country'].unique())
-
-year_preference = st.radio('Display preference:', ['All years', 'Specific year'])
-
 acronym_option = checked_countries[checked_countries['Country'] == country_option].Acronym.sample().item()
 st.write('You selected {}-{}'.format(acronym_option, country_option))
+
+year_preference = st.radio('Display preference:', ['All years', 'Specific year'])
 
 if year_preference == 'Specific year':
   checked_year = pd.read_sql('''SELECT projects.year AS Year FROM projects, participants 
