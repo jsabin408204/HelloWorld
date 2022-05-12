@@ -60,7 +60,7 @@ WHERE participants.projectID == projects.projectID AND participants.country == c
 ORDER BY shortName'''.format(country_option) , connection)
 
 # Printing the coordinators' dataframe with a condition in case it is empty for a given country
-st.header('Project coordinators in {} in {}'.format(country_option))
+st.header('Project coordinators in {}'.format(country_option))
 if len(coordinators.index) == 0:
   st.write('No project coordinators available in {}'.format(country_option))
 else:
