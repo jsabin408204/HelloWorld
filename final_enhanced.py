@@ -49,6 +49,7 @@ else:
   WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == '{}' AND participants.role == "coordinator"
   ORDER BY shortName'''.format(country_option), connection, index_col = 'year')
   available_years = custom_participants.index.tolist()
+  select_year = st.slider(available_years)
   difference = custom_participants.loc[max(available_years), 'sum_ecContribution'] - custom_participants.loc[min(available_years), 'sum_ecContribution']
 
 # Creating a plot of the contribution per year of a given country
