@@ -52,10 +52,9 @@ else:
 # Creating a plot of the contribution per year of a given country
 st.header('Yearly EC contribution in {} (€)'.format(country_option))
 st.bar_chart(custom_participants['sum_ecContribution'])
-if year_preference == 'All years':
-  st.write('Change between two years')
+if year_preference == 'All years' and with st.expander('See difference between two years'):
   available_years = custom_participants.index.tolist()
-  first_year = st.expander.radio('First year:', available_years)
+  first_year = st.radio('First year:', available_years)
   available_years_after = [year for year in available_years if year > first_year]
   if len(available_years_after) > 0:
     second_year = st.sidebar.radio('Second year:', available_years_after)
