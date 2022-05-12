@@ -23,8 +23,10 @@ country_option = st.selectbox('Country:', checked_countries['Country'].unique())
 acronym_option = checked_countries[checked_countries['Country'] == country_option].Acronym.sample().item()
 st.write('You selected {}-{}'.format(acronym_option, country_option))
 
+# Sidebar radio button for year preference
 year_preference = st.sidebar.radio('Display preference:', ['All years', 'Specific year'])
 
+# Create different dataframes depending on whether it refers to a specific year or not
 if year_preference == 'Specific year':
   checked_year = pd.read_sql('''SELECT projects.year AS Year FROM projects, participants 
   WHERE participants.country == '{}' AND participants.projectID == projects.projectID'''.format(acronym_option), connection)
@@ -53,7 +55,9 @@ else:
 
 # Creating a plot of the contribution per year of a given country
 st.bar_chart(custom_participants['sum_ecContribution'])
-if year_preference == 'All years':
+
+# Functionality to see difference between two years
+if year_preference == 'All years': 
   with st.expander('See difference between two years'):
     available_years = custom_participants.index.tolist()
     available_years.sort()
