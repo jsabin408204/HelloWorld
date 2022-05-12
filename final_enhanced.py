@@ -80,7 +80,7 @@ st.download_button(label="Download the participants' dataset",data=custom_partic
 # Printing the coordinators' dataframe with a condition in case it is empty for a given country
 if year_preference == 'Specific year':
   st.header('Project coordinators in {} in {}'.format(country_option, year_option))
- else:
+else:
   st.header('Participants in {}'.format(country_option))
 if len(coordinators.index) == 0:
   if year_preference == 'Specific year':
