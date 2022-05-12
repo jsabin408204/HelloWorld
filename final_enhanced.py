@@ -48,9 +48,11 @@ else:
   FROM participants, projects, countries
   WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == '{}' AND participants.role == "coordinator"
   ORDER BY shortName'''.format(country_option), connection, index_col = 'year')
+  st.write('Observe the change between two years'' grants)
   available_years = custom_participants.index.tolist()
-  select_year = st.selectbox(available_years)
-  difference = custom_participants.loc[max(available_years), 'sum_ecContribution'] - custom_participants.loc[min(available_years), 'sum_ecContribution']
+  first_year = st.selectbox('First year:', available_years)
+  second_year = st.selectbox('Second year:', available_years)
+  difference = custom_participants.loc[second_year, 'sum_ecContribution'] - custom_participants.loc[first_year, 'sum_ecContribution']
 
 # Creating a plot of the contribution per year of a given country
 st.header('Yearly EC contribution in {} (€)'.format(country_option))
