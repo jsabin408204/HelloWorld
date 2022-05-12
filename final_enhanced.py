@@ -55,7 +55,7 @@ else:
 st.header('Yearly EC contribution in {} (€)'.format(country_option))
 st.bar_chart(custom_participants['sum_ecContribution'])
 if year_preference == 'All years':
-  st.metric('Overall change in aggregated grants', max(custom_participants.loc[max(available_year), 'sum_ecContribution'], difference))
+  st.metric('Overall change in aggregated grants', custom_participants.loc[max(available_year), 'sum_ecContribution'], difference))
 
 # Printing the participants' dataframe
 st.header('Participants in {}'.format(country_option))
