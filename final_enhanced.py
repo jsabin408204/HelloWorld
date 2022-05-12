@@ -48,7 +48,7 @@ else:
   FROM participants, projects, countries
   WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == '{}' AND participants.role == "coordinator"
   ORDER BY shortName'''.format(country_option), connection, index_col = 'year')
-  st.write('Observe the change between two years'' grants)
+  st.write('Change between two years:')
   available_years = custom_participants.index.tolist()
   first_year = st.selectbox('First year:', available_years)
   second_year = st.selectbox('Second year:', available_years)
