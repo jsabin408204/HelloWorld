@@ -55,9 +55,9 @@ st.bar_chart(custom_participants['sum_ecContribution'])
 if year_preference == 'All years':
   st.write('Change between two years')
   available_years = custom_participants.index.tolist()
-  first_year = st.selectbox('First year:', available_years)
+  first_year = st.radio('First year:', available_years)
   available_years_after = [year for year in available_years if year > first_year]
-  second_year = st.selectbox('Second year:', available_years_after)
+  second_year = st.radio('Second year:', available_years_after)
   difference = custom_participants.loc[second_year, 'sum_ecContribution'] - custom_participants.loc[first_year, 'sum_ecContribution']
   st.metric('Overall change in aggregated grants', custom_participants.loc[max(available_years), 'sum_ecContribution'],difference)
 
