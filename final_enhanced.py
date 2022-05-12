@@ -35,12 +35,20 @@ if year_preference == 'Specific year':
   WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == '{}' AND projects.year == '{}'
   GROUP BY projects.year
   ORDER BY sum_ecContribution DESC'''.format(country_option, year_option), connection, index_col = 'year')
+  coordinators=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, projects.acronym
+  FROM participants, projects, countries
+  WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == '{}' AND participants.role == "coordinator" AND projects.year == '{}'
+  ORDER BY shortName'''.format(country_option, year_option) , connection)
 else:
   custom_participants=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, participants.organizationURL, COUNT(participants.projectID) as count_project, SUM(ecContribution) as sum_ecContribution, projects.year as year
   FROM participants, projects, countries
   WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == '{}' 
   GROUP BY projects.year
   ORDER BY sum_ecContribution DESC'''.format(country_option) , connection, index_col = 'year')
+  coordinators=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, projects.acronym
+  FROM participants, projects, countries
+  WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == '{}' AND participants.role == "coordinator"
+  ORDER BY shortName'''.format(country_option) , connection)
 
 # Creating a plot of the contribution per year of a given country
 st.header('Yearly EC contribution in {} (€)'.format(country_option))
@@ -52,12 +60,6 @@ st.write(custom_participants)
 
 # Download button for the participants' dataset in csv format
 st.download_button(label="Download the participants' dataset",data=custom_participants.to_csv().encode('utf-8'), file_name='Participants in {}.csv'.format(country_option), mime='text/csv')
-
-# Creating the dataframe of coordinators of the selected country in ascending order by shortName
-coordinators=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, projects.acronym
-FROM participants, projects, countries
-WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == '{}' AND participants.role == "coordinator"
-ORDER BY shortName'''.format(country_option) , connection)
 
 # Printing the coordinators' dataframe with a condition in case it is empty for a given country
 st.header('Project coordinators in {}'.format(country_option))
