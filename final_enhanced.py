@@ -54,11 +54,11 @@ st.header('Yearly EC contribution in {} (€)'.format(country_option))
 st.bar_chart(custom_participants['sum_ecContribution'])
 if year_preference == 'All years':
   with st.expander('See difference between two years'):
-    available_years = custom_participants.index.tolist()
-    first_year = st.radio('First year:', sort(available_years))
+    available_years = custom_participants.index.tolist().sort()
+    first_year = st.radio('First year:', available_years)
     available_years_after = [year for year in available_years if year > first_year]
     if len(available_years_after) > 0:
-      second_year = st.radio('Second year:', sort(available_years_after))
+      second_year = st.radio('Second year:', available_years_after)
       difference = custom_participants.loc[second_year, 'sum_ecContribution'] - custom_participants.loc[first_year, 'sum_ecContribution']
       st.metric('''Aggregated grants in {} '''.format(second_year), custom_participants.loc[second_year, 'sum_ecContribution'],difference)
     else:
