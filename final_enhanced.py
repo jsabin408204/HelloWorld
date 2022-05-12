@@ -31,22 +31,22 @@ if year_preference == 'Specific year':
   year_option = st.selectbox('Year:', np.unique(checked_year['Year']))
   custom_participants=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, participants.organizationURL, COUNT(participants.projectID) as count_project, SUM(ecContribution) as sum_ecContribution, projects.year as year
   FROM participants, projects, countries
-  WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == {} AND projects.year == {}
+  WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == '{}' AND projects.year == '{}'
   GROUP BY projects.year
   ORDER BY sum_ecContribution DESC'''.format(country_option, year_option), connection, index_col = 'year')
   coordinators=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, projects.acronym, projects.year AS year
   FROM participants, projects, countries
-  WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == {} AND participants.role == "coordinator" AND projects.year == {}
+  WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == '{}' AND participants.role == "coordinator" AND projects.year == '{}'
   ORDER BY shortName'''.format(country_option, year_option), connection, index_col = 'year')
 else:
   custom_participants=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, participants.organizationURL, COUNT(participants.projectID) as count_project, SUM(ecContribution) as sum_ecContribution, projects.year as year
   FROM participants, projects, countries
-  WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == {}
+  WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == '{}'
   GROUP BY projects.year
   ORDER BY sum_ecContribution DESC'''.format(country_option), connection, index_col = 'year')
   coordinators=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, projects.acronym, projects.year AS year
   FROM participants, projects, countries
-  WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == {} AND participants.role == "coordinator"
+  WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == '{}' AND participants.role == "coordinator"
   ORDER BY shortName'''.format(country_option), connection, index_col = 'year')
 
 # Creating a plot of the contribution per year of a given country
