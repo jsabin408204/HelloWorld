@@ -75,7 +75,10 @@ else:
 st.write(custom_participants)
 
 # Download button for the participants' dataset in csv format
-st.download_button(label="Download the participants' dataset",data=custom_participants.to_csv().encode('utf-8'), file_name='Participants in {}.csv'.format(country_option), mime='text/csv')
+if year_preference == 'Specific year':
+  st.download_button(label="Download the {} participants' dataset".format(year_option),data=custom_participants.to_csv().encode('utf-8'), file_name='Participants in {} in {}.csv'.format(country_option, year_option), mime='text/csv')
+else:
+  st.download_button(label="Download the participants' dataset",data=custom_participants.to_csv().encode('utf-8'), file_name='Participants in {}.csv'.format(country_option), mime='text/csv')
 
 # Printing the coordinators' dataframe with a condition in case it is empty for a given country
 if year_preference == 'Specific year':
@@ -90,4 +93,7 @@ if len(coordinators.index) == 0:
 else:
   st.write(coordinators)
   # Download button for the coordinators' dataset in csv format
-  st.download_button(label="Download the coordinators' dataset",data=coordinators.to_csv().encode('utf-8'), file_name='Project coordinators in {}.csv'.format(country_option), mime='text/csv')
+  if year_preference == 'Specific year':
+    st.download_button(label="Download the {} coordinators' dataset".format(year_option),data=coordinators.to_csv().encode('utf-8'), file_name='Project coordinators in {} in {}.csv'.format(country_option, year_option), mime='text/csv')
+  else:
+    st.download_button(label="Download the coordinators' dataset",data=coordinators.to_csv().encode('utf-8'), file_name='Project coordinators in {}.csv'.format(country_option), mime='text/csv')
