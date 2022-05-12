@@ -21,6 +21,7 @@ WHERE participants.country == countries.acronym''', connection)
 unique_countries = checked_countries['Country'].unique().tolist()
 unique_countries.sort()
 country_option = st.selectbox('Country:', unique_countries)
+acronym_option = checked_countries[checked_countries['Country'] == country_option].Acronym.sample().item()
 st.write('You selected {}-{}'.format(acronym_option, country_option))
 
 # Creating the dataframe of participants of the selected country grouped by project year and in descending order of contribution
