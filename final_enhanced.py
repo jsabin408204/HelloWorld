@@ -81,7 +81,7 @@ st.download_button(label="Download the participants' dataset",data=custom_partic
 if year_preference == 'Specific year':
   st.header('Project coordinators in {} in {}'.format(country_option, year_option))
 else:
-  st.header('Participants in {}'.format(country_option))
+  st.header('Project coordinators in {}'.format(country_option))
 if len(coordinators.index) == 0:
   if year_preference == 'Specific year':
     st.write('No project coordinators available in {} in {}'.format(country_option, year_option))
