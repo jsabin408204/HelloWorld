@@ -48,17 +48,17 @@ else:
   FROM participants, projects, countries
   WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == '{}' AND participants.role == "coordinator"
   ORDER BY shortName'''.format(country_option), connection, index_col = 'year')
-  st.write('Change between two years:')
-  available_years = custom_participants.index.tolist()
-  first_year = st.selectbox('First year:', available_years)
-  available_years_after = [year for year in available_years if year > first_year]
-  second_year = st.selectbox('Second year:', available_years_after)
-  difference = custom_participants.loc[second_year, 'sum_ecContribution'] - custom_participants.loc[first_year, 'sum_ecContribution']
 
 # Creating a plot of the contribution per year of a given country
 st.header('Yearly EC contribution in {} (€)'.format(country_option))
 st.bar_chart(custom_participants['sum_ecContribution'])
 if year_preference == 'All years':
+  st.write('Change between two years')
+  available_years = custom_participants.index.tolist()
+  first_year = st.selectbox('First year:', available_years)
+  available_years_after = [year for year in available_years if year > first_year]
+  second_year = st.selectbox('Second year:', available_years_after)
+  difference = custom_participants.loc[second_year, 'sum_ecContribution'] - custom_participants.loc[first_year, 'sum_ecContribution']
   st.metric('Overall change in aggregated grants', custom_participants.loc[max(available_years), 'sum_ecContribution'],difference)
 
 # Printing the participants' dataframe
