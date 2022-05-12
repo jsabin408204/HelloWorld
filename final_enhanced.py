@@ -51,7 +51,7 @@ else:
   st.write('Change between two years:')
   available_years = custom_participants.index.tolist()
   first_year = st.selectbox('First year:', available_years)
-  available_years_after = [year > first_year for year in available_years]
+  available_years_after = [year for year in available_years if year > first_year]
   second_year = st.selectbox('Second year:', available_years_after)
   difference = custom_participants.loc[second_year, 'sum_ecContribution'] - custom_participants.loc[first_year, 'sum_ecContribution']
 
