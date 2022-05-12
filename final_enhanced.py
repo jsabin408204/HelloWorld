@@ -60,8 +60,9 @@ if year_preference == 'All years':
     available_years_after = [year for year in available_years if year > first_year]
     if len(available_years_after) > 0:
       second_year = st.radio('Second year:', available_years_after)
-      difference = (custom_participants.loc[second_year, 'sum_ecContribution'] - custom_participants.loc[first_year, 'sum_ecContribution']) / custom_participants.loc[first_year, 'sum_ecContribution'] * 100
-      st.metric('''Aggregated grants in {} and change with respect to {} '''.format(second_year, first_year), custom_participants.loc[second_year, 'sum_ecContribution'], round(difference,2))
+      growth_rate = str((custom_participants.loc[second_year, 'sum_ecContribution'] - custom_participants.loc[first_year, 'sum_ecContribution']) / custom_participants.loc[first_year, 'sum_ecContribution'] * 100) + ' %'
+      difference = str(custom_participants.loc[second_year, 'sum_ecContribution'] - custom_participants.loc[first_year, 'sum_ecContribution']) + ' €'
+      st.metric('''Absolute and % change in {} with respect to {} '''.format(second_year, first_year), value = difference, delta = growth_rate)
     else:
       st.write('''No available years after {} '''.format(int(first_year)))
 
