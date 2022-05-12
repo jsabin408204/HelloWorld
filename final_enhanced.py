@@ -62,7 +62,7 @@ if year_preference == 'All years':
     difference = custom_participants.loc[second_year, 'sum_ecContribution'] - custom_participants.loc[first_year, 'sum_ecContribution']
     st.metric('Overall change in aggregated grants', custom_participants.loc[max(available_years), 'sum_ecContribution'],difference)
   else:
-    st.write('No available years after '{}' '.format(first_year))
+    st.write('''No available years after '{}' '''.format(first_year))
 
 # Printing the participants' dataframe
 st.header('Participants in {}'.format(country_option))
