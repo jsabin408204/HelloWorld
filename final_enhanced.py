@@ -68,16 +68,25 @@ if year_preference == 'All years':
       st.write('''No available years after {} '''.format(int(first_year)))
 
 # Printing the participants' dataframe
-st.header('Participants in {}'.format(country_option))
+if year_preference == 'Specific year':
+  st.header('Participants in {} in {}'.format(country_option, year_option))
+else:
+  st.header('Participants in {}'.format(country_option))
 st.write(custom_participants)
 
 # Download button for the participants' dataset in csv format
 st.download_button(label="Download the participants' dataset",data=custom_participants.to_csv().encode('utf-8'), file_name='Participants in {}.csv'.format(country_option), mime='text/csv')
 
 # Printing the coordinators' dataframe with a condition in case it is empty for a given country
-st.header('Project coordinators in {}'.format(country_option))
+if year_preference == 'Specific year':
+  st.header('Project coordinators in {} in {}'.format(country_option, year_option))
+ else:
+  st.header('Participants in {}'.format(country_option))
 if len(coordinators.index) == 0:
-  st.write('No project coordinators available in {}'.format(country_option))
+  if year_preference == 'Specific year':
+    st.write('No project coordinators available in {} in {}'.format(country_option, year_option))
+  else:  
+    st.write('No project coordinators available in {}'.format(country_option))
 else:
   st.write(coordinators)
   # Download button for the coordinators' dataset in csv format
