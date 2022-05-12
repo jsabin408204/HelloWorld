@@ -50,7 +50,7 @@ else:
   FROM participants, projects, countries
   WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == '{}' AND participants.role == "coordinator"
   ORDER BY shortName'''.format(country_option), connection, index_col = 'year')
-  difference = custom_participants.loc[0]
+  difference = custom_participants.iloc[0, 'sum_ecContribution']
   st.write(difference)
 
 # Creating a plot of the contribution per year of a given country
