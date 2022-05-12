@@ -13,8 +13,6 @@ st.image('KDT logo.jpg')
 # Title of the webapp
 st.title('Partner search tool')
 
-st.metric('My metric', 42, 2)
-
 # Dataframe to ensure only the existing countries in participants are shown in the select box and to have their acronyms
 checked_countries = pd.read_sql('''SELECT countries.Country AS Country, countries.Acronym AS Acronym
 FROM participants, countries
@@ -50,14 +48,14 @@ else:
   FROM participants, projects, countries
   WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == '{}' AND participants.role == "coordinator"
   ORDER BY shortName'''.format(country_option), connection, index_col = 'year')
-  max_year = custom_participants.index
-  st.write(max_year)
-  difference = custom_participants.loc[2016, 'sum_ecContribution']
-  st.write(difference)
+  available_years = custom_participants.index.tolist()
+  difference = custom_participants.loc[max(available_year), 'sum_ecContribution'] - custom_participants.loc[min(available_year), 'sum_ecContribution']
 
 # Creating a plot of the contribution per year of a given country
 st.header('Yearly EC contribution in {} (€)'.format(country_option))
 st.bar_chart(custom_participants['sum_ecContribution'])
+if year_preference == 'All years':
+  st.metric('Overall change in aggregated grants', max(custom_participants.loc[max(available_year), 'sum_ecContribution'], difference)
 
 # Printing the participants' dataframe
 st.header('Participants in {}'.format(country_option))
