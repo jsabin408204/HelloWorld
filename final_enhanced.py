@@ -57,9 +57,12 @@ if year_preference == 'All years':
   available_years = custom_participants.index.tolist()
   first_year = st.radio('First year:', available_years)
   available_years_after = [year for year in available_years if year > first_year]
-  second_year = st.radio('Second year:', available_years_after)
-  difference = custom_participants.loc[second_year, 'sum_ecContribution'] - custom_participants.loc[first_year, 'sum_ecContribution']
-  st.metric('Overall change in aggregated grants', custom_participants.loc[max(available_years), 'sum_ecContribution'],difference)
+  if len(available_years_after) > 0:
+    second_year = st.radio('Second year:', available_years_after)
+    difference = custom_participants.loc[second_year, 'sum_ecContribution'] - custom_participants.loc[first_year, 'sum_ecContribution']
+    st.metric('Overall change in aggregated grants', custom_participants.loc[max(available_years), 'sum_ecContribution'],difference)
+  else:
+    st.write('No available years after', first_year)
 
 # Printing the participants' dataframe
 st.header('Participants in {}'.format(country_option))
