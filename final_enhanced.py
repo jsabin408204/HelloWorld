@@ -38,6 +38,7 @@ if year_preference == 'Specific year':
   FROM participants, projects, countries
   WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == '{}' AND participants.role == "coordinator" AND projects.year == '{}'
   ORDER BY shortName'''.format(country_option, year_option), connection, index_col = 'year')
+  st.header('EC contribution in {} in {} (€)'.format(country_option, year_option))
 else:
   custom_participants=pd.read_sql('''SELECT participants.shortName, participants.name, participants.activityType, participants.organizationURL, COUNT(participants.projectID) as count_project, SUM(ecContribution) as sum_ecContribution, projects.year as year
   FROM participants, projects, countries
@@ -48,9 +49,9 @@ else:
   FROM participants, projects, countries
   WHERE participants.projectID == projects.projectID AND participants.country == countries.acronym AND countries.Country == '{}' AND participants.role == "coordinator"
   ORDER BY shortName'''.format(country_option), connection, index_col = 'year')
+  st.header('Yearly EC contribution in {} (€)'.format(country_option))
 
 # Creating a plot of the contribution per year of a given country
-st.header('Yearly EC contribution in {} (€)'.format(country_option))
 st.bar_chart(custom_participants['sum_ecContribution'])
 if year_preference == 'All years':
   with st.expander('See difference between two years'):
