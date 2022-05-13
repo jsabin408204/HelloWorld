@@ -5,7 +5,7 @@ import sqlite3
 import numpy as np
 
 # Connecting to the database
-connection=sqlite3.connect("partnersearchapp.sqlite") 
+connection=sqlite3.connect("Group_3_ecsel_database.db") 
 
 # Image at the top of the webapp
 st.image('KDT logo.jpg')
